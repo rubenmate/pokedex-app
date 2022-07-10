@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
+import PokemonCard from "../components/pokemon-card";
 import { trpc } from "../utils/trpc";
 
-const MAX_POKEMONS = 9;
+const MAX_POKEMONS = 6;
 const Home: NextPage = () => {
     let pokemons = [];
 
@@ -26,36 +26,12 @@ const Home: NextPage = () => {
                 <div className="grid grid-cols-1 grid-rows-3 lg:grid-rows-1 md:grid-rows-1 lg:grid-cols-3 md:grid-cols-3 gap-3 mt-3 pt-3 w-full lg:w-2/3 md:w-full">
                     {pokemons.map(({ data }) => {
                         return (
-                            <div
+                            <PokemonCard
                                 key={data?.id}
-                                className="hover:scale-105 cursor-pointer duration-500 flex flex-col 
-                    justify-center items-center text-center rounded shadow-xl border-2 
-                    border-gray-500 h-full w-full p-6"
-                            >
-                                {/* Pokemon image */}
-                                <Image
-                                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data?.id}.png`}
-                                    alt="Pokemon image"
-                                    height={200}
-                                    width={200}
-                                />
-                                {/* Pokemon id */}
-                                <p className="text-sm text-gray-600">#001</p>
-                                <h2 className="text-lg text-gray-700 capitalize">{data?.name}</h2>
-                                <div className="p-2" />
-                                <div className="flex justify-center items-center">
-                                    {data?.types.map(({ type }) => {
-                                        return (
-                                            <div
-                                                key={type.url}
-                                                className="bg-green-400 rounded-md px-2 py-1 mr-2 capitalize"
-                                            >
-                                                {type.name}
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                            </div>
+                                id={data?.id}
+                                name={data?.name}
+                                types={data?.types}
+                            />
                         );
                     })}
                 </div>
