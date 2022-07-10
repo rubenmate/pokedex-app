@@ -19,7 +19,6 @@ const PokemonCard: FC<PokemonProps> = ({ id, name, types }) => {
                     justify-center items-center text-center rounded shadow-xl border-2 
                     border-gray-500 h-full w-full p-6"
             >
-                <div>{`Id is ${id}, name is ${name}`}</div>
                 <Image src={pokemonURL} alt="Pokemon image" height={200} width={200} />
 
                 <p className="text-sm text-gray-600">#001</p>
