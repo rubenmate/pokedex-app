@@ -16,9 +16,8 @@ const PokemonCard: FC<PokemonProps> = ({ id, name, types }) => {
     return (
         <>
             <div
-                className="hover:scale-105 cursor-pointer duration-500 flex flex-col 
-                    justify-center items-center text-center rounded shadow-xl border-2 
-                    border-gray-500 h-full w-full p-6"
+                className="cursor-pointer duration-500 flex flex-col justify-center items-center 
+                text-center rounded shadow-xl border-2 border-gray-500 h-full w-full p-6"
             >
                 <Image src={pokemonURL} alt={`${name} image`} height={200} width={200} />
 
