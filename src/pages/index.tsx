@@ -3,7 +3,7 @@ import Head from "next/head";
 import PokemonCard from "../components/pokemon-card";
 import { trpc } from "../utils/trpc";
 
-const MAX_POKEMONS = 6;
+const MAX_POKEMONS = 50;
 const Home: NextPage = () => {
     let pokemons = [];
 
@@ -19,7 +19,7 @@ const Home: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <div className="w-screen h-screen flex flex-col justify-center items-center p-4">
+            <div className="flex flex-col justify-center items-center p-4">
                 <h2 className="text-[3rem] lg:text-[5rem] md:text-[5rem] font-extrabold text-gray-700">
                     <span className="text-purple-300">Pokedex</span> App
                 </h2>
