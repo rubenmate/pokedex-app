@@ -10,6 +10,11 @@ export const pokemonRouter = createRouter().query("get-pokemon-by-id", {
         const api = new PokemonClient();
 
         const pokemon = await api.getPokemonById(input.id);
-        return pokemon;
+        return {
+            id: pokemon.id,
+            name: pokemon.name,
+            types: pokemon.types,
+            sprite: pokemon.sprites.other["official-artwork"].front_default,
+        };
     },
 });
