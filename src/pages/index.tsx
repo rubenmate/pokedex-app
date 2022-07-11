@@ -34,6 +34,7 @@ const Home: NextPage = () => {
                                 id={data?.id}
                                 name={data?.name}
                                 types={data?.types}
+                                spriteUrl={data?.sprites.other["official-artwork"].front_default!}
                             />
                         );
                     })}
