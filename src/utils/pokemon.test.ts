@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { addLeftpadZeroes, formatPokemonId, formatPokemonId } from "./pokemon";
+import { addLeftpadZeroes, formatPokemonId, generateTypeColor } from "./pokemon";
 
 describe("Pokemon Utils", () => {
     describe("addLeftpadZeroes", () => {
@@ -30,6 +30,16 @@ describe("Pokemon Utils", () => {
             expect(formatedPokemonId).toBe("#1113");
             formatedPokemonId = formatPokemonId(11113);
             expect(formatedPokemonId).toBe("#11113");
+        });
+    });
+
+    describe("generateTypeColor", () => {
+        test("type get a properly bg color", () => {
+            expect(generateTypeColor("fire")).toBe("bg-orange-500");
+            expect(generateTypeColor("fairy")).toBe("bg-pink-400");
+        });
+        test("if type is not supported return the default value", () => {
+            expect(generateTypeColor("magma")).toBe("bg-white");
         });
     });
 });
