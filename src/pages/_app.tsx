@@ -21,6 +21,12 @@ const getBaseUrl = () => {
 
 export default withTRPC<AppRouter>({
     config({ ctx }) {
+        // Use SSG-caching for each rendered page
+        const ONE_DAY_SECONDS = 60 * 60 * 24;
+        ctx?.res?.setHeader(
+            "Cache-Control",
+            `s-maxage=1, stale-while-revalidate=${ONE_DAY_SECONDS}`
+        );
         /**
          * If you want to use SSR, you need to use the server's full URL
          * @link https://trpc.io/docs/ssr
