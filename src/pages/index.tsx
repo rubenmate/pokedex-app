@@ -8,8 +8,11 @@ const Home: NextPage = () => {
     let pokemons = [];
 
     for (let index = 1; index <= MAX_POKEMONS; index++) {
-        pokemons.push(trpc.useQuery(["pokemon.get-pokemon-by-id", { id: index }]));
+        let pokemon = trpc.useQuery(["pokemon.get-pokemon-by-id", { id: index }]);
+        pokemons.push(pokemon);
     }
+
+    if (pokemons.at(-1)?.isLoading) return null;
 
     return (
         <>
