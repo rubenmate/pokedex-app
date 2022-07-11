@@ -3,11 +3,12 @@ import Head from "next/head";
 import PokemonCard from "../components/pokemon-card";
 import { trpc } from "../utils/trpc";
 
-const MAX_POKEMONS = 20;
+const INITIAL_POKEMONS = 12;
+const MAX_POKEMONS = 151;
 const Home: NextPage = () => {
     let pokemons = [];
 
-    for (let index = 1; index <= MAX_POKEMONS; index++) {
+    for (let index = 1; index <= INITIAL_POKEMONS; index++) {
         let pokemon = trpc.useQuery(["pokemon.get-pokemon-by-id", { id: index }]);
         pokemons.push(pokemon);
     }
@@ -26,7 +27,10 @@ const Home: NextPage = () => {
                 <h2 className="text-[3rem] lg:text-[5rem] md:text-[5rem] font-extrabold text-gray-700">
                     <span className="text-purple-300">Pokedex</span> App
                 </h2>
-                <div className="grid grid-cols-1 grid-rows-3 lg:grid-rows-1 md:grid-rows-1 lg:grid-cols-3 md:grid-cols-3 gap-3 mt-3 pt-3 w-full lg:w-2/3 md:w-full">
+                <div
+                    className="grid grid-cols-1 grid-rows-3 lg:grid-rows-1 md:grid-rows-1 
+                lg:grid-cols-3 md:grid-cols-3 gap-3 mt-3 pt-3 w-full lg:w-2/3 md:w-full"
+                >
                     {pokemons.map(({ data }) => {
                         return (
                             <PokemonCard
