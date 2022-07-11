@@ -2,6 +2,7 @@ import { FC } from "react";
 import Image from "next/image";
 import { PokemonType } from "pokenode-ts";
 import { formatPokemonId, generateTypeColor } from "../utils/pokemon";
+import Types from "./types";
 
 type PokemonProps = {
     id: number | undefined;
@@ -22,20 +23,7 @@ const PokemonCard: FC<PokemonProps> = ({ id, name, types, spriteUrl }) => {
                 <p className="text-sm text-gray-600">{formatPokemonId(id!)}</p>
                 <h2 className="text-lg text-gray-700 capitalize">{name}</h2>
                 <div className="p-2" />
-                <div className="flex justify-center items-center">
-                    {types?.map(({ type }) => {
-                        return (
-                            <div
-                                key={type.url}
-                                className={`${generateTypeColor(
-                                    type.name
-                                )} rounded-md px-2 py-1 mr-2 text-white capitalize`}
-                            >
-                                {type.name}
-                            </div>
-                        );
-                    })}
-                </div>
+                <Types types={types} />
             </div>
         </>
     );
