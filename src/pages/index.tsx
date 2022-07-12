@@ -5,10 +5,12 @@ import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {
     const utils = trpc.useContext();
-    const { isLoading, isError, error, data, fetchNextPage, isFetching, isFetchingNextPage } =
-        trpc.useInfiniteQuery(["pokemon.get-infinite-pokemon", { limit: 12 }], {
+    const { hasNextPage, isLoading, data, fetchNextPage } = trpc.useInfiniteQuery(
+        ["pokemon.get-infinite-pokemon", { limit: 12 }],
+        {
             getNextPageParam: (lastPage) => lastPage.nextCursor,
-        });
+        }
+    );
 
     if (isLoading)
         return (
@@ -49,9 +51,14 @@ const Home: NextPage = () => {
                     )}
                 </div>
                 <div className="btn-container">
-                    <button onClick={() => fetchNextPage()}>Load More</button>
+                    <button
+                        onClick={() => {
+                            if (hasNextPage) fetchNextPage();
+                        }}
+                    >
+                        Load More
+                    </button>
                 </div>
-                <div>{isFetching && !isFetchingNextPage ? "Fetching..." : null}</div>
             </div>
         </>
     );
