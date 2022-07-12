@@ -19,5 +19,12 @@ export const generateTypeColor = (type: string): string => {
     if (type === "electric") return "bg-yellow-400";
     if (type === "ground") return "bg-amber-600";
     if (type === "fairy") return "bg-pink-400";
-    return "bg-white";
+    if (type === "fighting") return "bg-orange-700";
+    if (type === "psychic") return "bg-rose-800";
+    if (type === "rock") return "bg-yellow-900";
+    if (type === "steel") return "bg-zinc-700";
+    if (type === "ghost") return "bg-indigo-900";
+    if (type === "ice") return "bg-blue-300";
+    if (type === "dragon") return "bg-blue-600";
+    return "bg-black";
 };

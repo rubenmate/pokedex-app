@@ -6,7 +6,7 @@ import { trpc } from "../utils/trpc";
 const Home: NextPage = () => {
     const utils = trpc.useContext();
     const { hasNextPage, isLoading, data, fetchNextPage } = trpc.useInfiniteQuery(
-        ["pokemon.get-infinite-pokemon", { limit: 12 }],
+        ["pokemon.get-infinite-pokemon", { limit: 30 }],
         {
             getNextPageParam: (lastPage) => lastPage.nextCursor,
         }
