@@ -1,10 +1,10 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import toast, { Toaster } from "react-hot-toast";
 import PokemonCard from "../components/pokemon-card";
 import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {
-    const utils = trpc.useContext();
     const { hasNextPage, isLoading, data, fetchNextPage } = trpc.useInfiniteQuery(
         ["pokemon.get-infinite-pokemon", { limit: 12 }],
         {
@@ -52,11 +52,33 @@ const Home: NextPage = () => {
                 </div>
                 <div className="btn-container">
                     <button
+                        className="flex items-center justify-center mt-2 rounded-lg bg-white
+                        p-2 shadow-xl"
                         onClick={() => {
-                            if (hasNextPage) fetchNextPage();
+                            if (hasNextPage) {
+                                const myPromise = fetchNextPage();
+                                toast.promise(myPromise, {
+                                    loading: "Loading more Pokemons",
+                                    success: "Gotcha!",
+                                    error: "Error when fetching",
+                                });
+                            }
                         }}
                     >
-                        Load More
+                        <Toaster position="bottom-right" reverseOrder={false} />
+                        <div className="pr-2">Load More </div>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                        >
+                            <path
+                                fillRule="evenodd"
+                                d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z"
+                                clipRule="evenodd"
+                            />
+                        </svg>
                     </button>
                 </div>
             </div>
