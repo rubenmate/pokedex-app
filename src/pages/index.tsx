@@ -51,7 +51,6 @@ const Home: NextPage = () => {
                     )}
                 </div>
                 <div className="btn-container">
-                    <Toaster position="bottom-right" reverseOrder={false} />
                     <button
                         className="flex items-center justify-center mt-2 rounded-lg bg-white
                         p-2 shadow-xl"
@@ -82,6 +81,8 @@ const Home: NextPage = () => {
                             </svg>
                         </div>
                     </button>
+
+                    <Toaster position="bottom-right" reverseOrder={false} />
                 </div>
             </div>
         </>

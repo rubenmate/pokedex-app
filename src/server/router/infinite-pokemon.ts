@@ -8,13 +8,17 @@ type MyPokemon = {
     types: PokemonType[];
 };
 
+const ONE_DAY_SECONDS = 60 * 60 * 24 * 1000;
+
 export const infinitePokemonRouter = createRouter().query("get-infinite-pokemon", {
     input: z.object({
         limit: z.number().min(1).max(50).nullish(),
         cursor: z.number().nullish(),
     }),
     async resolve({ input }) {
-        const api = new MainClient();
+        const api = new MainClient({
+            cacheOptions: { maxAge: ONE_DAY_SECONDS, exclude: { query: false } },
+        });
         const limit = input.limit ?? 6;
 
         const { cursor } = input;
