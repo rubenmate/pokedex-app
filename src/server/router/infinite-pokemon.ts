@@ -1,14 +1,8 @@
 import { createRouter } from "./context";
 import { z } from "zod";
-import { MainClient, PokemonType } from "pokenode-ts";
-type MyPokemon = {
-    id: number;
-    name: string;
-    spriteUrl: string | null;
-    types: PokemonType[];
-};
+import { PokemonClient, PokemonType } from "pokenode-ts";
 
-const ONE_DAY_SECONDS = 60 * 60 * 24 * 1000;
+const ONE_DAY_MILISECONDS = 60 * 60 * 24 * 1000;
 
 export const infinitePokemonRouter = createRouter().query("get-infinite-pokemon", {
     input: z.object({
@@ -16,21 +10,20 @@ export const infinitePokemonRouter = createRouter().query("get-infinite-pokemon"
         cursor: z.number().nullish(),
     }),
     async resolve({ input }) {
-        const api = new MainClient({
-            cacheOptions: { maxAge: ONE_DAY_SECONDS, exclude: { query: false } },
+        const api = new PokemonClient({
+            cacheOptions: { maxAge: ONE_DAY_MILISECONDS, exclude: { query: false } },
         });
-        const limit = input.limit ?? 6;
+        const limit = input.limit ?? 50;
 
         const { cursor } = input;
 
-        const pokemons: MyPokemon[] = [];
+        let offset = cursor ? cursor : 0;
+        const pokemons = await api.listPokemons(offset, limit);
 
-        for (let index = 1; index < limit + 2; index++) {
+        /* for (let index = 1; index < limit + 2; index++) {
             let offset = cursor ? cursor : 0;
             if (index + offset <= 151) {
-                const { id, name, sprites, types } = await api.pokemon.getPokemonById(
-                    index + offset
-                );
+                const { id, name, sprites, types } = await api.getPokemonById(index + offset);
                 pokemons.push({
                     id: id,
                     name: name,
@@ -38,14 +31,17 @@ export const infinitePokemonRouter = createRouter().query("get-infinite-pokemon"
                     types: types,
                 });
             }
-        }
+        } */
 
         let nextCursor: typeof cursor | null = input.cursor;
+        nextCursor = nextCursor ? nextCursor : 0;
 
-        if (pokemons.length > limit) {
+        /* if (pokemons.length > limit) {
             const nextItem = pokemons.pop();
             nextCursor = nextItem!.id;
-        }
+        } */
+
+        nextCursor += pokemons.results.length;
 
         return {
             pokemons,

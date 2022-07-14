@@ -4,13 +4,15 @@ import toast, { Toaster } from "react-hot-toast";
 import PokemonCard from "../components/pokemon-card";
 import { trpc } from "../utils/trpc";
 
+const LIMIT = 25;
 const Home: NextPage = () => {
     const { hasNextPage, isLoading, data, fetchNextPage } = trpc.useInfiniteQuery(
-        ["pokemon.get-infinite-pokemon", { limit: 12 }],
+        ["pokemon.get-infinite-pokemon", { limit: LIMIT }],
         {
             getNextPageParam: (lastPage) => lastPage.nextCursor,
         }
     );
+    console.log(data?.pages);
 
     if (isLoading)
         return (
@@ -36,17 +38,10 @@ const Home: NextPage = () => {
                     className="grid grid-cols-1 grid-rows-3 lg:grid-rows-1 md:grid-rows-1 
                 lg:grid-cols-3 md:grid-cols-3 gap-3 mt-3 pt-3 w-full lg:w-2/3 md:w-full"
                 >
-                    {data?.pages.map((page) =>
-                        page.pokemons.map(({ id, name, types, spriteUrl }) => {
-                            return (
-                                <PokemonCard
-                                    key={id}
-                                    id={id}
-                                    name={name}
-                                    types={types}
-                                    spriteUrl={spriteUrl!}
-                                />
-                            );
+                    {data?.pages.map((page, pageIndex) =>
+                        page.pokemons.results.map((element, pokemonIndex) => {
+                            let id = pageIndex * LIMIT + (pokemonIndex + 1);
+                            return <PokemonCard key={id} id={id} name={element.name} />;
                         })
                     )}
                 </div>
