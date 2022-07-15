@@ -1,11 +1,13 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useCallback, useRef } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { ScaleLoader } from "react-spinners";
 import PokemonCard from "../components/pokemon-card";
 import { trpc } from "../utils/trpc";
 
 const LIMIT = 27;
+
 const Home: NextPage = () => {
     const { hasNextPage, isLoading, data, fetchNextPage } = trpc.useInfiniteQuery(
         ["pokemon.get-infinite-pokemon", { limit: LIMIT }],
@@ -13,6 +15,22 @@ const Home: NextPage = () => {
             getNextPageParam: (lastPage) => lastPage.nextCursor,
         }
     );
+
+    const observer = useRef<IntersectionObserver | null>(null);
+    const divToLoadPokemonsRef = useCallback<React.RefCallback<HTMLDivElement>>((node) => {
+        if (observer.current) observer.current.disconnect();
+        observer.current = new IntersectionObserver((entries) => {
+            if (entries[0]?.isIntersecting) {
+                const myPromise = fetchNextPage();
+                toast.promise(myPromise, {
+                    loading: "Loading more Pokemons",
+                    success: "Gotcha!",
+                    error: "Error when fetching",
+                });
+            }
+        });
+        if (node) observer.current.observe(node);
+    }, []);
 
     if (isLoading)
         return (
@@ -40,9 +58,19 @@ const Home: NextPage = () => {
                     {data?.pages.map((page, pageIndex) =>
                         page.pokemons.results.map((element, pokemonIndex) => {
                             let id = pageIndex * LIMIT + (pokemonIndex + 1);
+                            if (id === 905) return;
+                            if (pokemonIndex === LIMIT - 1) {
+                                return (
+                                    <>
+                                        {/* FIXME: I can try to pass the ref directly on PokemonCard */}
+                                        <PokemonCard key={id} id={id} name={element.name} />
+                                    </>
+                                );
+                            }
                             return <PokemonCard key={id} id={id} name={element.name} />;
                         })
                     )}
+                    <div ref={divToLoadPokemonsRef} />
                 </div>
                 <div className="btn-container">
                     <button
