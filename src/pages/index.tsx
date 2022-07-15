@@ -4,7 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 import PokemonCard from "../components/pokemon-card";
 import { trpc } from "../utils/trpc";
 
-const LIMIT = 25;
+const LIMIT = 27;
 const Home: NextPage = () => {
     const { hasNextPage, isLoading, data, fetchNextPage } = trpc.useInfiniteQuery(
         ["pokemon.get-infinite-pokemon", { limit: LIMIT }],
