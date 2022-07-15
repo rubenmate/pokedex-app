@@ -16,7 +16,21 @@ const PokemonCard: FC<PokemonProps> = ({ id, name }) => {
     const types = pokemonQuery.data?.types;
 
     // TODO: Make this prettier
-    if (pokemonQuery.isLoading) return <h1>Loading...</h1>;
+    if (pokemonQuery.isLoading) {
+        return (
+            <div
+                className="cursor-pointer duration-500 flex flex-col justify-center items-center 
+                text-center rounded shadow-xl border-2 border-gray-500 h-full w-full p-6"
+            >
+                <div className="h-[200px] w-[200px]">Loading image</div>
+
+                <p className="text-sm text-gray-600">{formatPokemonId(id!)}</p>
+                <h2 className="text-lg text-gray-700 capitalize">{name}</h2>
+                <div className="p-2" />
+                <div>Loading</div>
+            </div>
+        );
+    }
 
     return (
         <>
