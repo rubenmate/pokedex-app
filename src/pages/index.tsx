@@ -14,6 +14,7 @@ const Home: NextPage = () => {
     );
     console.log(data?.pages);
 
+    // TODO: Make this prettier
     if (isLoading)
         return (
             <div className="flex flex-col justify-center items-center p-4">
