@@ -20,27 +20,9 @@ export const infinitePokemonRouter = createRouter().query("get-infinite-pokemon"
         let offset = cursor ? cursor : 0;
         const pokemons = await api.listPokemons(offset, limit);
 
-        /* for (let index = 1; index < limit + 2; index++) {
-            let offset = cursor ? cursor : 0;
-            if (index + offset <= 151) {
-                const { id, name, sprites, types } = await api.getPokemonById(index + offset);
-                pokemons.push({
-                    id: id,
-                    name: name,
-                    spriteUrl: sprites.other["official-artwork"].front_default,
-                    types: types,
-                });
-            }
-        } */
-
         let nextCursor: typeof cursor | null = input.cursor;
+
         nextCursor = nextCursor ? nextCursor : 0;
-
-        /* if (pokemons.length > limit) {
-            const nextItem = pokemons.pop();
-            nextCursor = nextItem!.id;
-        } */
-
         nextCursor += pokemons.results.length;
 
         return {

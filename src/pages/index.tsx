@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import toast, { Toaster } from "react-hot-toast";
+import { ScaleLoader } from "react-spinners";
 import PokemonCard from "../components/pokemon-card";
 import { trpc } from "../utils/trpc";
 
@@ -12,15 +13,12 @@ const Home: NextPage = () => {
             getNextPageParam: (lastPage) => lastPage.nextCursor,
         }
     );
-    console.log(data?.pages);
 
-    // TODO: Make this prettier
     if (isLoading)
         return (
             <div className="flex flex-col justify-center items-center p-4">
-                <h2 className="text-[3rem] lg:text-[5rem] md:text-[5rem] font-extrabold text-gray-700">
-                    <span className="text-purple-300">Loading...</span>
-                </h2>
+                <h1 className="text-6xl font-extrabold">Loading</h1>
+                <ScaleLoader className="mt-4" />
             </div>
         );
     return (
