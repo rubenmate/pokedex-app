@@ -60,22 +60,22 @@ const Home: NextPage = () => {
                 <meta name="description" content="Pokedex App" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className="flex justify-end items-center">
-                <div>Switch color theme</div>
-                <button
-                    className="m-2 w-10 h-10 rounded-md dark:bg-yellow-400 bg-blue-400 dark:text-black text-white flex justify-center items-center"
-                    onClick={() => {
-                        setTheme(theme === "dark" ? "light" : "dark");
-                    }}
-                >
-                    {theme === "dark" ? (
-                        <BsSun className="w-5 h-5" />
-                    ) : (
-                        <MdModeNight className="w-5 h-5" />
-                    )}
-                </button>
-            </div>
             <div className="flex flex-col justify-center items-center p-4 dark:bg-grayish">
+                <div className="self-end flex justify-end items-center">
+                    <div>Switch color theme</div>
+                    <button
+                        className="m-2 w-10 h-10 rounded-md dark:bg-yellow-400 bg-blue-400 dark:text-black text-white flex justify-center items-center"
+                        onClick={() => {
+                            setTheme(theme === "dark" ? "light" : "dark");
+                        }}
+                    >
+                        {theme === "dark" ? (
+                            <BsSun className="w-5 h-5" />
+                        ) : (
+                            <MdModeNight className="w-5 h-5" />
+                        )}
+                    </button>
+                </div>
                 <h2 className="text-[3rem] lg:text-[5rem] md:text-[5rem] font-extrabold text-gray-700 dark:text-white">
                     <span className="text-purple-300">Pokedex</span> App
                 </h2>
@@ -109,7 +109,7 @@ const Home: NextPage = () => {
                             }
                         }}
                     >
-                        <div className="px-2 contents">
+                        <div className="px-2 contents dark:text-black">
                             <div className="pr-2">Load More </div>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
