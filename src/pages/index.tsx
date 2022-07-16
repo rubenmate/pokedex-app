@@ -1,14 +1,24 @@
 import type { NextPage } from "next";
+import { useTheme } from "next-themes";
 import Head from "next/head";
 import { useCallback, useRef } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { ScaleLoader } from "react-spinners";
 import PokemonCard from "../components/pokemon-card";
 import { trpc } from "../utils/trpc";
+import { MdModeNight } from "react-icons/md";
+import { BsSun } from "react-icons/bs";
 
 const LIMIT = 27;
 
+// const toggleColorTheme = () => {
+//     console.log("Funciona el toggle");
+//     console.log(localStorage.theme);
+//     localStorage.theme = localStorage.theme === "light" ? "dark" : "light";
+// };
+
 const Home: NextPage = () => {
+    const { theme, setTheme } = useTheme();
     const { hasNextPage, isLoading, data, fetchNextPage } = trpc.useInfiniteQuery(
         ["pokemon.get-infinite-pokemon", { limit: LIMIT }],
         {
@@ -17,26 +27,30 @@ const Home: NextPage = () => {
     );
 
     const observer = useRef<IntersectionObserver | null>(null);
-    const divToLoadPokemonsRef = useCallback<React.RefCallback<HTMLDivElement>>((node) => {
-        if (observer.current) observer.current.disconnect();
-        observer.current = new IntersectionObserver((entries) => {
-            if (entries[0]?.isIntersecting) {
-                const myPromise = fetchNextPage();
-                toast.promise(myPromise, {
-                    loading: "Loading more Pokemons",
-                    success: "Gotcha!",
-                    error: "Error when fetching",
-                });
-            }
-        });
-        if (node) observer.current.observe(node);
-    }, []);
+    const divToLoadPokemonsRef = useCallback<React.RefCallback<HTMLDivElement>>(
+        (node) => {
+            if (observer.current) observer.current.disconnect();
+            observer.current = new IntersectionObserver((entries) => {
+                if (entries[0]?.isIntersecting) {
+                    const myPromise = fetchNextPage();
+                    toast.promise(myPromise, {
+                        loading: "Loading more Pokemons",
+                        success: "Gotcha!",
+                        error: "Error when fetching",
+                    });
+                }
+            });
+            if (node) observer.current.observe(node);
+        },
+        [fetchNextPage]
+    );
 
     if (isLoading)
         return (
-            <div className="flex flex-col justify-center items-center p-4">
+            <div className="flex flex-col justify-center items-center p-4 dark:bg-grayish dark:text-white min-h-screen">
                 <h1 className="text-6xl font-extrabold">Loading</h1>
-                <ScaleLoader className="mt-4" />
+                {/* TODO: Differentiate colors in dark/light mode */}
+                <ScaleLoader className="mt-4" color="silver" />
             </div>
         );
     return (
@@ -46,9 +60,23 @@ const Home: NextPage = () => {
                 <meta name="description" content="Pokedex App" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-
-            <div className="flex flex-col justify-center items-center p-4">
-                <h2 className="text-[3rem] lg:text-[5rem] md:text-[5rem] font-extrabold text-gray-700">
+            <div className="flex justify-end items-center">
+                <div>Switch color theme</div>
+                <button
+                    className="m-2 w-10 h-10 rounded-md dark:bg-yellow-400 bg-blue-400 dark:text-black text-white flex justify-center items-center"
+                    onClick={() => {
+                        setTheme(theme === "dark" ? "light" : "dark");
+                    }}
+                >
+                    {theme === "dark" ? (
+                        <BsSun className="w-5 h-5" />
+                    ) : (
+                        <MdModeNight className="w-5 h-5" />
+                    )}
+                </button>
+            </div>
+            <div className="flex flex-col justify-center items-center p-4 dark:bg-grayish">
+                <h2 className="text-[3rem] lg:text-[5rem] md:text-[5rem] font-extrabold text-gray-700 dark:text-white">
                     <span className="text-purple-300">Pokedex</span> App
                 </h2>
                 <div
@@ -58,14 +86,8 @@ const Home: NextPage = () => {
                     {data?.pages.map((page, pageIndex) =>
                         page.pokemons.results.map((element, pokemonIndex) => {
                             let id = pageIndex * LIMIT + (pokemonIndex + 1);
-                            if (id === 905) return;
                             if (pokemonIndex === LIMIT - 1) {
-                                return (
-                                    <>
-                                        {/* FIXME: I can try to pass the ref directly on PokemonCard */}
-                                        <PokemonCard key={id} id={id} name={element.name} />
-                                    </>
-                                );
+                                return <PokemonCard key={id} id={id} name={element.name} />;
                             }
                             return <PokemonCard key={id} id={id} name={element.name} />;
                         })

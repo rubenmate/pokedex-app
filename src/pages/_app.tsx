@@ -4,9 +4,14 @@ import type { AppRouter } from "../server/router";
 import type { AppType } from "next/dist/shared/lib/utils";
 import superjson from "superjson";
 import "../styles/globals.css";
+import { ThemeProvider } from "next-themes";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
-    return <Component {...pageProps} />;
+    return (
+        <ThemeProvider attribute="class" defaultTheme="system">
+            <Component {...pageProps} />;
+        </ThemeProvider>
+    );
 };
 
 const getBaseUrl = () => {
