@@ -19,6 +19,8 @@ const LIMIT = 27;
 
 const Home: NextPage = () => {
     const { theme, setTheme } = useTheme();
+    setTheme(theme!);
+
     const { hasNextPage, isLoading, data, fetchNextPage } = trpc.useInfiniteQuery(
         ["pokemon.get-infinite-pokemon", { limit: LIMIT }],
         {
