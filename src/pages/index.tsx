@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useTheme } from "next-themes";
 import Head from "next/head";
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { ScaleLoader } from "react-spinners";
 import PokemonCard from "../components/pokemon-card";
@@ -12,18 +12,12 @@ import { BsSun } from "react-icons/bs";
 
 const LIMIT = 27;
 
-// const toggleColorTheme = () => {
-//     console.log("Funciona el toggle");
-//     console.log(localStorage.theme);
-//     localStorage.theme = localStorage.theme === "light" ? "dark" : "light";
-// };
-
 const Home: NextPage = () => {
     const { theme, setTheme } = useTheme();
-    setTheme(theme!);
+    const [firstPos, setFirstPos] = useState(0);
 
     const { hasNextPage, isLoading, data, fetchNextPage } = trpc.useInfiniteQuery(
-        ["pokemon.get-infinite-pokemon", { limit: LIMIT }],
+        ["pokemon.get-infinite-pokemon", { limit: LIMIT, firstPos: firstPos }],
         {
             getNextPageParam: (lastPage) => lastPage.nextCursor,
         }
@@ -63,6 +57,15 @@ const Home: NextPage = () => {
                 <meta name="description" content="Pokedex App" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+            <button onClick={() => setFirstPos(0)}>Primera generación</button>
+            <button onClick={() => setFirstPos(151)}>Segunda generación</button>
+            <button onClick={() => setFirstPos(251)}>Tercera generación</button>
+            <button onClick={() => setFirstPos(386)}>Cuarta generación</button>
+            <button onClick={() => setFirstPos(493)}>Quinta generación</button>
+            <button onClick={() => setFirstPos(649)}>Sexta generación</button>
+            <button onClick={() => setFirstPos(721)}>Séptima generación</button>
+            <button onClick={() => setFirstPos(809)}>Octava generación</button>
+            <button onClick={() => setFirstPos(898)}>Otros</button>
             <div className="flex flex-col justify-center items-center p-4 dark:bg-grayish">
                 <div className="self-end flex justify-end items-center">
                     <div>Switch color theme</div>
@@ -92,40 +95,9 @@ const Home: NextPage = () => {
                             return <PokemonCard key={id} id={id} name={element.name} />;
                         })
                     )}
-                    <div ref={divToLoadPokemonsRef} />
+                    {hasNextPage && <div ref={divToLoadPokemonsRef} />}
                 </div>
                 <div className="btn-container">
-                    <button
-                        className="flex items-center justify-center mt-2 rounded-lg bg-white
-                        p-2 shadow-xl"
-                        onClick={() => {
-                            if (hasNextPage) {
-                                const myPromise = fetchNextPage();
-                                toast.promise(myPromise, {
-                                    loading: "Loading more Pokemons",
-                                    success: "Gotcha!",
-                                    error: "Error when fetching",
-                                });
-                            }
-                        }}
-                    >
-                        <div className="px-2 contents dark:text-black">
-                            <div className="pr-2">Load More </div>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-5 w-5"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                            >
-                                <path
-                                    fillRule="evenodd"
-                                    d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z"
-                                    clipRule="evenodd"
-                                />
-                            </svg>
-                        </div>
-                    </button>
-
                     <Toaster position="bottom-right" reverseOrder={false} />
                 </div>
             </div>
