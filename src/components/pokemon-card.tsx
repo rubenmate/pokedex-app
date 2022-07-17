@@ -42,7 +42,9 @@ const PokemonCard: FC<PokemonProps> = ({ id, name }) => {
                 className="cursor-pointer duration-500 flex flex-col justify-center items-center
                 text-center dark:bg-gray-800 rounded shadow-xl border-2 border-gray-500 dark:border-gray-500 h-full w-full p-6"
             >
-                <Image src={spriteURL!} alt={`${name} image`} height={200} width={200} />
+                {spriteURL && (
+                    <Image src={spriteURL} alt={`${name} image`} height={200} width={200} />
+                )}
 
                 <p className="text-sm text-gray-600 dark:text-white">{formatPokemonId(id!)}</p>
                 <h2 className="text-lg text-gray-700 dark:text-white capitalize">{name}</h2>
