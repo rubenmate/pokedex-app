@@ -1,3 +1,7 @@
+export const extractPokemonIdFromURL = (input: string) => {
+    return input.split("/").at(6);
+};
+
 export const addLeftpadZeroes = (number: number, minLength: number): string => {
     const numberString = String(number);
     if (numberString.length >= minLength) return numberString;
