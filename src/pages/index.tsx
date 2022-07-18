@@ -83,28 +83,107 @@ const Home: NextPage = () => {
                                     />
                                 </Menu.Button>
                                 <Menu.Items className="absolute flex flex-col">
-                                    <Menu.Item>
-                                        {({ active }) => (
-                                            <button
-                                                className="py-2 mt-1 w-48 border border-black 
-                                                bg-white rounded-md"
-                                                onClick={() => setFirstPos(0)}
-                                            >
-                                                1st gen
-                                            </button>
-                                        )}
-                                    </Menu.Item>
-                                    <Menu.Item>
-                                        {({ active }) => (
-                                            <button
-                                                className="py-2 w-48 border border-black bg-white 
-                                                rounded-md"
-                                                onClick={() => setFirstPos(151)}
-                                            >
-                                                2nd gen
-                                            </button>
-                                        )}
-                                    </Menu.Item>
+                                    <div className="mt-1 border border-black rounded-md bg-white dark:bg-gray-400">
+                                        <Menu.Item>
+                                            {({ active }) => (
+                                                <button
+                                                    className={`border-b border-gray-200 py-2 w-48 ${active ? "bg-indigo-500 text-white" : ""
+                                                        }`}
+                                                    onClick={() => setFirstPos(0)}
+                                                >
+                                                    1st gen
+                                                </button>
+                                            )}
+                                        </Menu.Item>
+                                        <Menu.Item>
+                                            {({ active }) => (
+                                                <button
+                                                    className={`border-b border-gray-200 py-2 w-48 ${active ? "bg-indigo-500 text-white" : ""
+                                                        }`}
+                                                    onClick={() => setFirstPos(151)}
+                                                >
+                                                    2nd gen
+                                                </button>
+                                            )}
+                                        </Menu.Item>
+                                        <Menu.Item>
+                                            {({ active }) => (
+                                                <button
+                                                    className={`border-b border-gray-200 py-2 w-48 ${active ? "bg-indigo-500 text-white" : ""
+                                                        }`}
+                                                    onClick={() => setFirstPos(251)}
+                                                >
+                                                    3rd gen
+                                                </button>
+                                            )}
+                                        </Menu.Item>
+                                        <Menu.Item>
+                                            {({ active }) => (
+                                                <button
+                                                    className={`border-b border-gray-200 py-2 w-48 ${active ? "bg-indigo-500 text-white" : ""
+                                                        }`}
+                                                    onClick={() => setFirstPos(386)}
+                                                >
+                                                    4th gen
+                                                </button>
+                                            )}
+                                        </Menu.Item>
+                                        <Menu.Item>
+                                            {({ active }) => (
+                                                <button
+                                                    className={`border-b border-gray-200 py-2 w-48 ${active ? "bg-indigo-500 text-white" : ""
+                                                        }`}
+                                                    onClick={() => setFirstPos(493)}
+                                                >
+                                                    5th gen
+                                                </button>
+                                            )}
+                                        </Menu.Item>
+                                        <Menu.Item>
+                                            {({ active }) => (
+                                                <button
+                                                    className={`border-b border-gray-200 py-2 w-48 ${active ? "bg-indigo-500 text-white" : ""
+                                                        }`}
+                                                    onClick={() => setFirstPos(649)}
+                                                >
+                                                    6th gen
+                                                </button>
+                                            )}
+                                        </Menu.Item>
+                                        <Menu.Item>
+                                            {({ active }) => (
+                                                <button
+                                                    className={`border-b border-gray-200 py-2 w-48 ${active ? "bg-indigo-500 text-white" : ""
+                                                        }`}
+                                                    onClick={() => setFirstPos(721)}
+                                                >
+                                                    7th gen
+                                                </button>
+                                            )}
+                                        </Menu.Item>
+                                        <Menu.Item>
+                                            {({ active }) => (
+                                                <button
+                                                    className={`border-b border-gray-200 py-2 w-48 ${active ? "bg-indigo-500 text-white" : ""
+                                                        }`}
+                                                    onClick={() => setFirstPos(809)}
+                                                >
+                                                    8th gen
+                                                </button>
+                                            )}
+                                        </Menu.Item>
+                                        <Menu.Item>
+                                            {({ active }) => (
+                                                <button
+                                                    className={`py-2 w-48 ${active ? "bg-indigo-500 text-white" : ""
+                                                        }`}
+                                                    onClick={() => setFirstPos(898)}
+                                                >
+                                                    Others
+                                                </button>
+                                            )}
+                                        </Menu.Item>
+                                    </div>
                                 </Menu.Items>
                             </Menu>
                         </div>
