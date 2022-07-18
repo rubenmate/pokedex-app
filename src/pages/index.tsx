@@ -57,18 +57,65 @@ const Home: NextPage = () => {
                 <meta name="description" content="Pokedex App" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <button onClick={() => setFirstPos(0)}>Primera generación</button>
-            <button onClick={() => setFirstPos(151)}>Segunda generación</button>
-            <button onClick={() => setFirstPos(251)}>Tercera generación</button>
-            <button onClick={() => setFirstPos(386)}>Cuarta generación</button>
-            <button onClick={() => setFirstPos(493)}>Quinta generación</button>
-            <button onClick={() => setFirstPos(649)}>Sexta generación</button>
-            <button onClick={() => setFirstPos(721)}>Séptima generación</button>
-            <button onClick={() => setFirstPos(809)}>Octava generación</button>
-            <button onClick={() => setFirstPos(898)}>Otros</button>
-            <div className="flex flex-col justify-center items-center p-4 dark:bg-grayish">
-                <div className="self-end flex justify-end items-center">
-                    <div>Switch color theme</div>
+            <div className="flex max-w-7xl mx-auto justify-between items-center">
+                <div className="justify-self-start flex items-center">
+                    <p className="font-bold">Start from:</p>
+                    <button
+                        onClick={() => setFirstPos(0)}
+                        className="ml-2 p-2 bg-blue-300 rounded-md text-black"
+                    >
+                        1st gen
+                    </button>
+                    <button
+                        onClick={() => setFirstPos(151)}
+                        className="ml-2 p-2 bg-blue-300 rounded-md text-black"
+                    >
+                        2nd gen
+                    </button>
+                    <button
+                        onClick={() => setFirstPos(251)}
+                        className="ml-2 p-2 bg-blue-300 rounded-md text-black"
+                    >
+                        3rd gen
+                    </button>
+                    <button
+                        onClick={() => setFirstPos(386)}
+                        className="ml-2 p-2 bg-blue-300 rounded-md text-black"
+                    >
+                        4th gen
+                    </button>
+                    <button
+                        onClick={() => setFirstPos(493)}
+                        className="ml-2 p-2 bg-blue-300 rounded-md text-black"
+                    >
+                        5th gen
+                    </button>
+                    <button
+                        onClick={() => setFirstPos(649)}
+                        className="ml-2 p-2 bg-blue-300 rounded-md text-black"
+                    >
+                        6th gen
+                    </button>
+                    <button
+                        onClick={() => setFirstPos(721)}
+                        className="ml-2 p-2 bg-blue-300 rounded-md text-black"
+                    >
+                        7th gen
+                    </button>
+                    <button
+                        onClick={() => setFirstPos(809)}
+                        className="ml-2 p-2 bg-blue-300 rounded-md text-black"
+                    >
+                        8th gen
+                    </button>
+                    <button
+                        onClick={() => setFirstPos(898)}
+                        className="ml-2 p-2 bg-blue-300 rounded-md text-black"
+                    >
+                        Others
+                    </button>
+                </div>
+                <div className="flex items-center justify-self-end">
                     <button
                         className="m-2 w-10 h-10 rounded-md dark:bg-yellow-400 bg-blue-400 dark:text-black text-white flex justify-center items-center"
                         onClick={() => {
@@ -82,6 +129,8 @@ const Home: NextPage = () => {
                         )}
                     </button>
                 </div>
+            </div>
+            <div className="flex flex-col justify-center items-center p-4 dark:bg-grayish">
                 <h2 className="text-[3rem] lg:text-[5rem] md:text-[5rem] font-extrabold text-gray-700 dark:text-white">
                     <span className="text-purple-300">Pokedex</span> App
                 </h2>
