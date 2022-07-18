@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Image from "next/image";
 import { formatPokemonId } from "../utils/pokemon";
-import Types from "./Types";
+import PokemonTypes from "./PokemonTypes";
 import { trpc } from "../utils/trpc";
 import MoonLoader from "react-spinners/MoonLoader";
 import BarLoader from "react-spinners/BarLoader";
@@ -50,7 +50,7 @@ const PokemonCard: FC<PokemonProps> = ({ id, name }) => {
                 <p className="text-sm text-gray-600 dark:text-white">{formatPokemonId(id!)}</p>
                 <h2 className="text-lg text-gray-700 dark:text-white capitalize">{name}</h2>
                 <div className="p-2" />
-                <Types types={types} />
+                <PokemonTypes types={types} />
             </div>
         </>
     );
