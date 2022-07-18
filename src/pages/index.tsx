@@ -62,11 +62,15 @@ const Home: NextPage = () => {
             <div className="flex max-w-6xl mx-auto justify-between items-center">
                 <div className="flex items-center">
                     <h2 className="ml-2 text-xl md:text-3xl font-extrabold text-gray-700 dark:text-white">
-                        <span className="text-purple-300">Pokedex</span> App
+                        Pokedex App
                     </h2>
                     <div className="ml-4">
                         <Menu>
-                            <Menu.Button className={"font-bold bg-gray-100 rounded-sm shadow p-2"}>
+                            <Menu.Button
+                                className={
+                                    "font-bold bg-gray-100 rounded-sm shadow p-2 dark:text-black"
+                                }
+                            >
                                 Start from:
                             </Menu.Button>
                             <Menu.Items>
