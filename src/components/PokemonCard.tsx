@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Image from "next/image";
 import { formatPokemonId } from "../utils/pokemon";
-import Types from "./types";
+import Types from "./Types";
 import { trpc } from "../utils/trpc";
 import MoonLoader from "react-spinners/MoonLoader";
 import BarLoader from "react-spinners/BarLoader";
