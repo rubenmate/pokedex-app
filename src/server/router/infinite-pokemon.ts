@@ -1,6 +1,6 @@
 import { createRouter } from "./context";
 import { z } from "zod";
-import { PokemonClient, PokemonType } from "pokenode-ts";
+import { PokemonClient } from "pokenode-ts";
 
 const ONE_DAY_MILISECONDS = 60 * 60 * 24 * 1000;
 
