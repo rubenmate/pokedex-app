@@ -193,6 +193,7 @@ const Home: NextPage = () => {
                             href="https://github.com/rubenmate/pokedex-app"
                             className="hidden md:flex items-center mr-2 bg-gray-100 pr-1 rounded-md 
                         font-semibold dark:text-black hover:underline shadow"
+                            target="_blank"
                         >
                             <div className="mr-2 p-2 bg-gray-600 rounded-sm">
                                 <FiGithub className="text-white" />
